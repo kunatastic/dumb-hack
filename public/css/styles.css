@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper{
+    width: 100vw;
+    height: 100vh;
+    /* background-color: orange; */
+}
+
+.box{
+    background-color: orchid;
+    height: 60%;
+    width: 60%;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flexc{
+    flex-direction: column;
+}
+
+.grid{
+    display: grid;
+    grid-template-rows: 2fr 3fr;
+}
+
+.col{
+    background-color: palevioletred;
+}
