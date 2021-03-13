@@ -4,6 +4,7 @@ const path = require("path");
 const http = require("http");
 const server = http.createServer(app);
 const socketio = require("socket.io");
+const morgan = require("morgan");
 const io = socketio(server, {
   cors: {
     origin: "*",
@@ -11,6 +12,7 @@ const io = socketio(server, {
 });
 
 // Middlewares
+app.use(morgan("common"));
 app.engine("html", require("ejs").renderFile);
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -30,6 +32,8 @@ app.get("/admin", (req, res) => {
   res.render("admin.html");
 });
 
-server.listen(3000, () => {
-  console.log(`Listening at http://localhost:3000`);
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`Listening at http://localhost:${PORT}`);
 });
