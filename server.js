@@ -11,26 +11,27 @@ const io = socketio(server, {
   },
 });
 
-// Middlewares
-app.use(morgan("common"));
-app.engine("html", require("ejs").renderFile);
-app.use(express.static(path.join(__dirname, "public")));
+//socket Logic
 
-// Logic for Socket
+let users = [];
+
 io.on("connection", (socket) => {
-  console.log("user connected");
-
-  socket.emit("message", "yellow");
+  socket.on("join room", (roomName) => {
+    socket.join(roomName);
+    console.log(`${socket.id} joined ${roomName}`);
+  });
+  socket.on("color", ({ room, color }) => {
+    console.log(room, color);
+    socket.to(room).emit("party", color);
+  });
 });
 
-// routes
-app.get("/", (req, res) => {
-  res.render("welcome.html");
-});
-
-app.get("/admin", (req, res) => {
-  res.render("admin.html");
-});
+// Middlewares
+app.use(morgan("dev"));
+app.use(express.json());
+app.engine("html", require("ejs").renderFile);
+app.use(express.static(path.join(__dirname, "/public")));
+app.use("/", require("./routes/homeRoute"));
 
 const PORT = process.env.PORT || 3000;
 
