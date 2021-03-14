@@ -1,6 +1,6 @@
 const socket = io();
 
-const body = document.getElementById("body");
+const body = document.getElementById("color");
 
 const path = window.location.pathname;
 var room = "";
