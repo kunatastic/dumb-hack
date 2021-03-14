@@ -14,9 +14,13 @@ const io = socketio(server, {
 //socket Logic
 
 io.on("connection", (socket) => {
+  socket.on("disconnecting", () => {
+    console.log(socket.rooms); // the Set contains at least the socket ID
+  });
   socket.on("join room", (roomName) => {
     socket.join(roomName);
     console.log(`${socket.id} joined ${roomName}`);
+    console.log(io.sockets.adapter.rooms);
   });
   socket.on("color", ({ room, color }) => {
     console.log(room, color);
