@@ -10,19 +10,17 @@
 <body id="body">
     <div class="wrapper flex">
         <div class="box grid"> 
-            <h1 class="flex">Dumb Hack Admin Beta</h1>
+            <h1 class="flex header">Dumb Hack</h1>
             <form action="" id="admin-form">
-                <input type="text" placeholder="Room name" id="room-name">
-                <button onclick="randomRoom()">
-                    Generate Random
-                </button>
-                <button type="submit" id="submit-btn" onclick="create()">Create Room</button>
+                  <div class="container">
+                    <input type="text" class="btn new" placeholder="Room name" autocomplete="off"  id="room-name">
+                    <a onclick="randomRoom()" class="btn effect04" data-sm-link-text="RANDOM ROOM"><span>RANDOM ROOM</span></a>
+                    <a type="submit" onclick="create()" class="btn effect04" data-sm-link-text="CREATE ROOM"><span>CREATE ROOM</span></a>
+                  </div>
             </form>
 
         </div>
     </div>
-    <!-- <script src="/socket.io/socket.io.js"></script> -->
-    <!-- <script src="./js/client.js"></script> -->
     <script src="./js/admin.js"></script>
 </body>
 </html>

@@ -13,8 +13,6 @@ const io = socketio(server, {
 
 //socket Logic
 
-let users = [];
-
 io.on("connection", (socket) => {
   socket.on("join room", (roomName) => {
     socket.join(roomName);
