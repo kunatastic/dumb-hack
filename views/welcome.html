@@ -8,18 +8,42 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body id="body">
+	<div class="colring"></div>
     <div class="wrapper flex">
         <div class="box grid"> 
-            <h1 class="flex">Dumb Hack</h1>
-            <div>
-                <div class="flex col">Have a room ID</div>
-                <div class="flex col">Create a room ID
-                    <a href="/admin">Admin</a>
+            <h1 class="flex header">DUMB HACK</h1>
+            <div class="flex">
+                <div class="col">
+                    <div class="buttons">
+                      <div class="container">
+                          <h1>What to create a new room?</h1>
+                          <p>Create Room</p>
+                          <a href="/admin" class="btn effect04" data-sm-link-text="CLICK"><span>CREATE</span></a>
+                      </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="buttons">
+                      <div class="container">
+                          <h1>Have a room ID?</h1>
+                          <p>Join room</p>
+                          <a onclick="load()" class="btn effect04" data-sm-link-text="CLICK" ><span>JOIN</span></a>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/client.js"></script>
 </body>
 </html>
+<script>
+    const load = ()=>{
+        const room = prompt("Enter the room ID");
+        if (room!=null){
+            window.location.href=`/${room}`
+        }
+        else{
+            alert("ID cannot be empty");
+        }
+    }
+</script>

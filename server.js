@@ -4,32 +4,35 @@ const path = require("path");
 const http = require("http");
 const server = http.createServer(app);
 const socketio = require("socket.io");
+const morgan = require("morgan");
 const io = socketio(server, {
   cors: {
     origin: "*",
   },
 });
 
-// Middlewares
-app.engine("html", require("ejs").renderFile);
-app.use(express.static(path.join(__dirname, "public")));
+//socket Logic
 
-// Logic for Socket
 io.on("connection", (socket) => {
-  console.log("user connected");
-
-  socket.emit("message", "yellow");
+  socket.on("join room", (roomName) => {
+    socket.join(roomName);
+    console.log(`${socket.id} joined ${roomName}`);
+  });
+  socket.on("color", ({ room, color }) => {
+    console.log(room, color);
+    socket.to(room).emit("party", color);
+  });
 });
 
-// routes
-app.get("/", (req, res) => {
-  res.render("welcome.html");
-});
+// Middlewares
+app.use(morgan("dev"));
+app.use(express.json());
+app.engine("html", require("ejs").renderFile);
+app.use(express.static(path.join(__dirname, "/public")));
+app.use("/", require("./routes/homeRoute"));
 
-app.get("/admin", (req, res) => {
-  res.render("admin.html");
-});
+const PORT = process.env.PORT || 3000;
 
-server.listen(3000, () => {
-  console.log(`Listening at http://localhost:3000`);
+server.listen(PORT, () => {
+  console.log(`Listening at http://localhost:${PORT}`);
 });
