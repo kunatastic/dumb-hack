@@ -38,6 +38,3 @@ const init = async () => {
     task();
   }
 };
-// Tutor();
-
-// task();
